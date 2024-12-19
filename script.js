@@ -23,7 +23,7 @@ $( document ).ready(function() {
    const client_id = "63cac51f2c10497b80b4d4f8044ecbe2"
    // Use the following site to convert your regular url to the encoded version:
    // https://www.url-encode-decode.com/
-   let redirect_url= "https%3A%2F%2Fgithub.com%2FAlbertoGonzalez01%2FSpotifyAPI.git"
+   let redirect_uri= "https%3A%2F%2Fgithub.com%2FAlbertoGonzalez01%2FSpotifyAPI.git"
    // *************** END *************************
 
    const redirect = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
