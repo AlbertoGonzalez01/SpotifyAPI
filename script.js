@@ -1,6 +1,3 @@
-
-
-
 $( document ).ready(function() {
     // Helper Function to Extract Access Token for URL
    const getUrlParameter = (sParam) => {
