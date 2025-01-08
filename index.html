@@ -14,46 +14,16 @@
 </head>
 
 <body>
-  <!-- Search Bar -->
-  <div class="buscar-caja">
-    <input type="text" name="" id="search-text" class="buscar-txt" placeholder="Search ....."/>
-    <a class="buscar-btn" id="search_button"> <i class="fa fa-search"></i> </a>
-  </div>
-
-  <!-- Load songs into here -->
-  <div class="container" id="song-list">
-    <div class="row">
-      <div id="song_0" class="col"></div>
-      <div id="song_1" class="col"></div>
-      <div id="song_2" class="col"></div>
+  <form id="form">
+    <input id="campo" type="text" placeholder="Introduce el nombre de la canción...">
+    <div class="botones">
+      <button id="enviar" type="submit">Enviar</button>
+      <button id="reset" type="reset">Cancelar</button>
     </div>
-    <div class="row">
-      <div id="song_3" class="col"></div>
-      <div id="song_4" class="col"></div>
-      <div id="song_5" class="col"></div>
-    </div>
-    <div class="row">
-      <div id="song_6" class="col"></div>
-      <div id="song_7" class="col"></div>
-      <div id="song_8" class="col"></div>
-    </div>
-    <div class="row">
-      <div id="song_9" class="col"></div>
-      <div id="song_10" class="col"></div>
-      <div id="song_11" class="col"></div>
-    </div>
-</div>
+  </form>
+  <div id="resultado"></div>
 
-<script src="https://apis.google.com/js/platform.js"></script>
-
-<div class="g-ytsubscribe" data-channelid="UCSBZXlXcfHKpuIiPvzMa87A" data-layout="full" data-count="hidden"></div>
-
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Latest compiled and minified Bootstrap JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <!-- Loading our JavaScript -->
-  <script src="script.js" charset="utf-8"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
