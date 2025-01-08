@@ -15,53 +15,55 @@ $( document ).ready(function() {
      }
  };
 
-   // Get Access Token
+
    const accessToken = getUrlParameter('access_token');
 
-   // AUTHORIZE with Spotify (if needed)
-   // *************** REPLACE THESE VALUES! *************************
-   const client_id = "63cac51f2c10497b80b4d4f8044ecbe2"
-   // Use the following site to convert your regular url to the encoded version:
-   // https://www.url-encode-decode.com/
-   let redirect_uri= "https%3A%2F%2Fgithub.com%2FAlbertoGonzalez01%2FSpotifyAPI.git"
-   // *************** END *************************
+   const client_id = "63cac51f2c10497b80b4d4f8044ecbe2";
 
+   let redirect_uri = encodeURIComponent("https://albertogonzalez01.github.io/SpotifyAPI/");
    const redirect = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
-   // Don't authorize if we have an access token already
+
+
    if(accessToken == null || accessToken == "" || accessToken == undefined){
      window.location.replace(redirect);
    }
 
-   // Search button has been clicked
-   $( "#search_button" ).click(function() {
-     //Get the value of the search box
-     let raw_search_query = $('#search-text').val();
-     let search_query = encodeURI(raw_search_query);
-     // Make Spotify API call
-     // Note: We are using the track API endpoint.
-     $.ajax({
-       url: `https://api.spotify.com/v1/search?q=${search_query}&type=track`,
-       type: 'GET',
-       headers: {
-           'Authorization' : 'Bearer ' + accessToken
-       },
-       success: function(data) {
-         // Load our songs from Spotify into our page
-         let num_of_tracks = data.tracks.items.length;
-         let count = 0;
-         // Max number of songs is 12
-         const max_songs = 12;
-         while(count < max_songs && count < num_of_tracks){
-           // Extract the id of the FIRST song from the data object
-           let id = data.tracks.items[count].id;
-           // Constructing two different iframes to embed the song
-           let src_str = `https://open.spotify.com/embed/track/${id}`;
-           let iframe = `<div class='song'><iframe src=${src_str} frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>`;
-           let parent_div = $('#song_'+ count);
-           parent_div.html(iframe);
-           count++;
-         }
-       }
-     }); // End of Spotify ajax call
-   }); // End of search button
- }); // End of document.ready
+
+   $('#form').on('submit', function (e) {
+    e.preventDefault();
+    let search = $('#campo').val();
+    let searchQuery = encodeURI(search);
+    $.ajax({
+        url: 'https://api.spotify.com/v1/search?q=' + searchQuery + '&type=track',
+        type: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        },
+        success: function (response) {
+            console.log(response);
+            let track = response.tracks.items[0];
+            console.log(track);
+
+            // Convertir duración de milisegundos a formato "min:seg"
+            let duration_ms = track.duration_ms;
+            let minutes = Math.floor(duration_ms / 60000);
+            let seconds = Math.floor((duration_ms % 60000) / 1000).toString().padStart(2, '0');
+            let duration = `${minutes}:${seconds}`;
+
+            $('#resultado').html(`
+                <h1>Canción: ${track.name}</h1>
+                <img src="${track.album.images[0].url}" alt="${track.name}">
+                <p><b>Artista:</b> ${track.artists[0].name}</p>
+                <p><b>Álbum:</b> ${track.album.name}</p>
+                <p><b>Duración:</b> ${duration}</p>
+                <p><b>Popularidad:</b> ${track.popularity}/100</p>
+                <a href="${track.external_urls.spotify}" target="_blank">
+                    Escuchar en Spotify
+                </a>
+            `);
+
+           
+        }
+    });
+});
+ }); 
